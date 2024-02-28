@@ -6,13 +6,16 @@
 #include <ESPAsyncTCP.h>
 #include <ESPAsyncWebServer.h>
 
-// Replace with your network credentials
-const char* ssid = "orionspace_2"; //Replace with your own SSID
-const char* password = "CLB2C85750"; //Replace with your own password
 
-const int relay1Pin = 16;
-const int relay2Pin = 14;
-const int relay3Pin = 12;
+#define ledPin 13 // GPIO pin to use as the output
+
+#define relay1Pin 16
+#define relay2Pin 14
+#define relay3Pin 12
+
+// Replace with your network credentials
+const char* ssid = "************"; //Replace with your own SSID
+const char* password = "************"; //Replace with your own password
 
 // Create AsyncWebServer object on port 80
 AsyncWebServer server(80);
@@ -20,6 +23,8 @@ AsyncWebServer server(80);
 void setup(){
 
   Serial.begin(115200);
+  pinMode(ledPin, OUTPUT);
+
   pinMode(relay1Pin, OUTPUT);
   pinMode(relay2Pin, OUTPUT);
   pinMode(relay3Pin, OUTPUT);
@@ -33,9 +38,12 @@ void setup(){
   // Connect to Wi-Fi
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
-    delay(1000);
     Serial.println("Connecting to WiFi..");
+    blink_led(250);
   }
+
+  // wifi successfully connected
+  digitalWrite(ledPin, HIGH);
 
   // Print ESP32 Local IP Address
   Serial.println(WiFi.localIP());
@@ -102,4 +110,15 @@ void setup(){
  
 void loop(){
   
+}
+
+void blink_led(uint8_t cycle)
+{
+    Serial.print("cycle: ");
+    Serial.println(cycle);
+    
+    digitalWrite(ledPin, HIGH);
+    delay(cycle);
+    digitalWrite(ledPin, LOW);
+    delay(cycle);
 }
