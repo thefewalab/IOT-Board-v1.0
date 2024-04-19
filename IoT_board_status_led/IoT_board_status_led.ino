@@ -14,8 +14,8 @@
 #define relay3Pin 12
 
 // Replace with your network credentials
-const char* ssid = "************"; //Replace with your own SSID
-const char* password = "************"; //Replace with your own password
+const char* ssid = "orionspace_2"; //Replace with your own SSID
+const char* password = "CLB2C85750"; //Replace with your own password
 
 // Create AsyncWebServer object on port 80
 AsyncWebServer server(80);
